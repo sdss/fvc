@@ -1,0 +1,8 @@
+[run]
+branch = true
+
+[report]
+omit =
+    python/fvc/etc/*
+    python/fvc/utils/*
+    python/fvc/tests/*
