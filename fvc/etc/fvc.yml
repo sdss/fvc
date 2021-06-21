@@ -1,0 +1,10 @@
+---
+actor:
+    name: fvc
+    host: 0.0.0.0
+    port: 19992
+    verbose: 20
+    tron_host: 127.0.0.1
+    tron_port: 6093
+    schema: etc/schema.json
+    log_dir: /data/logs/actors/fvc

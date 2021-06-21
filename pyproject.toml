@@ -1,0 +1,104 @@
+[tool.poetry]
+name = "fvc"
+version = "0.1.0-alpha.0"
+description = "Controllers for the SDSS-V FVC"
+authors = ["José Sánchez-Gallego <gallegoj@uw.edu>"]
+license = "BSD-3-Clause"
+readme = "README.md"
+homepage = "https://github.com/sdss/fvc"
+repository = "https://github.com/sdss/fvc"
+documentation = "https://sdss-fvc.readthedocs.io/en/latest/"
+keywords = ["astronomy", "software"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+packages = [
+    { include = "fvc" }
+]
+include = ["fvc/etc/*"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+sdss-drift = "^0.2.2"
+sdss-clu = "^1.0.0"
+sdsstools = ">=0.4.2"
+click_default_group = "^1.2.2"
+daemonocle = "^1.0.2"
+
+[tool.poetry.dev-dependencies]
+ipython = "*"
+matplotlib = "*"
+invoke = "*"
+flake8 = "*"
+doc8 = ">=0.8.0"
+pytest = ">=6.0"
+pytest-asyncio = "*"
+pytest-cov = "*"
+pytest-sugar = "*"
+isort = ">=5.0.0"
+codecov = ">=2.0.15"
+coverage = {version = ">=5.0", extras = ["toml"]}
+asynctest = {version=">=0.13.0", python="~3.7"}
+asyncmock = {version=">=0.4.2", python="~3.7"}
+Sphinx = ">=4.0"
+sphinx-click = ">=2.3.0"
+ipdb = ">=0.13.3"
+autopep8 = ">=1.5.4"
+black = {version = ">=20.8b1", allow-prereleases = true}
+rstcheck = ">=3.3.1"
+pytest-mock = ">=3.5.1"
+pyserial-asyncio = ">=0.5"
+sphinx-jsonschema = ">=1.16.8"
+myst-parser = ">=0.14.0"
+furo = "^2021.6.18-beta.36"
+nox = "^2021.6.12"
+sphinx-autobuild = "^2021.3.14"
+sphinx-copybutton = "^0.3.3"
+
+[tool.poetry.scripts]
+fvc = "fvc.__main__:fvc"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+fast = true
+
+[tool.isort]
+profile = "black"
+sections = ["FUTURE", "STDLIB", "TYPING", "THIRDPARTY", "SDSS", "FIRSTPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+known_first_party = "fvc"
+known_typing = ["typing"]
+known_sdss = ["sdsstools", "clu", "sdssdb", "drift"]
+lines_after_imports = 2
+
+[tool.pytest.ini_options]
+addopts = "--cov fvc --cov-report xml --cov-report html --cov-report term"
+filterwarnings = [
+    "ignore:.*The loop argument is deprecated since.*"
+]
+markers = []
+
+[tool.coverage.run]
+branch = true
+include = ["fvc/*"]
+omit = [
+    "*/__main__.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __str__",
+    "def __repr__"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools>=49.6.0"]
+build-backend = "poetry.core.masonry.api"
