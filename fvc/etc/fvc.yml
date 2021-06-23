@@ -8,3 +8,62 @@ actor:
     tron_port: 6093
     schema: etc/schema.json
     log_dir: /data/logs/actors/fvc
+
+ieb:
+    host: sdss-fvc-wago
+    port: 502
+    modules:
+        ANALOG1:
+            model: 750-450
+            mode: input_register
+            channels: 4
+            description: Pt RTD sensors
+            devices:
+                RTD1:
+                    address: 40015
+                    category: temperature
+                    adaptor: rtd
+                    units: degC
+                    description: Inside the controller box
+                RTD2:
+                    address: 4006
+                    category: temperature
+                    adaptor: rtd
+                    units: degC
+                    description:
+                RTD3ßß:
+                    address: 4007
+                    category: temperature
+                    adaptor: rtd
+                    units: degC
+                    description:
+        ANALOG_OUTPUT1:
+            model: 750-511
+            mode: holding_register
+            channels: 2
+            description: Pulse Width Modulator (PWM) output module for LED control
+            devices:
+                LED1:
+                    address: 40514
+                    category: fbi_led
+                    adaptor: pwd
+                    units: percent
+                    description: Red LED1
+        DO:
+            model: "750-530"
+            mode: holding_register
+            channels: 16
+            description: "Power relays"
+            devices:
+                PS1:
+                    address: 40517
+                    type: relay
+                    channel: 0
+                    category: power_nuc
+                    relay_type: NC
+                PS:
+                    address: 40517
+                    type: relay
+                    channel: 1
+                    category: power
+                    relay_type: NO
