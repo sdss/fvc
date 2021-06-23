@@ -65,7 +65,7 @@ fvc = "fvc.__main__:fvc"
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py39']
 fast = true
 
 [tool.isort]

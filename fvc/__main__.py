@@ -8,6 +8,7 @@
 
 import logging
 import os
+import pathlib
 
 import click
 from click_default_group import DefaultGroup
@@ -15,6 +16,7 @@ from click_default_group import DefaultGroup
 from sdsstools.daemonizer import DaemonGroup, cli_coro
 
 from fvc import config, log
+from fvc.actor import FVCActor
 
 
 @click.group(cls=DefaultGroup, default="actor", default_if_no_args=True)
@@ -50,13 +52,11 @@ def fvc(config_file, verbose):
 
 
 @fvc.group(cls=DaemonGroup, prog="fvc_actor", workdir=os.getcwd())
-@click.option(
-    "--no-tron",
-    is_flag=True,
-    help="Does not connect to Tron.",
-)
-@cli_coro
-async def actor(fps_maker, no_tron):
+@cli_coro()
+async def actor():
     """Runs the actor."""
 
-    pass
+    config = pathlib.Path(__file__).parent / "etc/fvc.yml"
+
+    fvc_actor = await FVCActor.from_config(str(config)).start()
+    await fvc_actor.run_forever()
